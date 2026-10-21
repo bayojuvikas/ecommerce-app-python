@@ -199,7 +199,7 @@ When explaining this project to interviewers or technical panel members, follow 
    > *"I paid special attention to user experience edge cases. For instance, clicking 'Logout' directs the user to a dedicated confirmation page instead of silently terminating the session. Authenticated users are prevented from seeing unnecessary login screens, and invalid form data triggers soft warning toasts using Flask's flash messaging."*
 
 4. **Front-End Integration (2 mins)**:
-   > *"The UI relies on Jinja2 template inheritance with `base.html` acting as the structural wrapper. Custom CSS (`style.css`) enhances the Bootstrap foundation with subtle micro-animations and cards."*
+   > *"The UI relies on Jinja2 template inheritance with `base.html` acting as the structural wrapper. Bootstrap 5 components (carousel, accordion, dropdowns) provide the interactive layer, with a small inline stylesheet for card hover states and image sizing."*
 
 ---
 
@@ -221,3 +221,44 @@ http://127.0.0.1:5000
 ### Pre-configured Demo Accounts:
 - **Email**: `demo@ecomxpress.com`
 - **Password**: `demo123`
+
+---
+
+## 8. Live Demo & Deployment
+
+**Live URL (GitHub Pages):** https://bayojuvikas.github.io/ecommerce-app-python/
+
+GitHub Pages can only host static files, so the published site is a static
+export produced by `build_static.py`:
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Render every route to static HTML (writes to ./site)
+python build_static.py
+
+# 3. Publish the build to the gh-pages branch
+cd site && git init -b gh-pages && git add -A && git commit -m "Publish GitHub Pages build"
+git remote add origin https://github.com/bayojuvikas/ecommerce-app-python.git
+git push origin gh-pages
+```
+
+`static_export/site.js` reproduces the Flask session behaviour in the browser
+(cart, wishlist and authentication are kept in `localStorage`), so every page of
+the published demo stays interactive.
+
+### Running the dynamic Flask application
+
+`render.yaml` is a Render.com blueprint, so the same repository can be
+deployed as a live WSGI application with `gunicorn`:
+
+```bash
+pip install -r requirements.txt
+gunicorn --bind 0.0.0.0:$PORT app:app
+```
+
+Configuration is read from the environment: set `SECRET_KEY` (see
+`.env.example`) to keep Flask sessions valid across restarts. When the variable
+is absent the app generates a random key at startup, which is fine for local
+use but invalidates existing sessions on every restart.

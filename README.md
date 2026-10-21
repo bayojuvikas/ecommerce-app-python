@@ -1,1 +1,1 @@
-**Live demo:** https://ecommerce-app-python.onrender.com
+https://bayojuvikas.github.io/ecommerce-app-python/
