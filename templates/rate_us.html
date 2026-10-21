@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Rate Us - E-comXpress{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-sm mx-auto p-4 text-center border-0" style="max-width: 500px;">
+        <h2 class="mb-3">Rate Your Experience</h2>
+        <p class="text-muted mb-4">Your feedback helps us improve.</p>
+        
+        <form action="{{ url_for('rate_us') }}" method="POST">
+            <div class="mb-4 d-flex justify-content-center gap-2">
+                <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="1" style="cursor: pointer;" onclick="setRating(1)"></span>
+                <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="2" style="cursor: pointer;" onclick="setRating(2)"></span>
+                <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="3" style="cursor: pointer;" onclick="setRating(3)"></span>
+                <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="4" style="cursor: pointer;" onclick="setRating(4)"></span>
+                <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="5" style="cursor: pointer;" onclick="setRating(5)"></span>
+            </div>
+            
+            <input type="hidden" id="selected-rating-val" name="rating" value="5">
+            
+            <div class="mb-3 text-start">
+                <label for="feedback" class="form-label text-muted">Additional Feedback (Optional)</label>
+                <textarea class="form-control" id="feedback" name="feedback" rows="4" placeholder="Tell us about your experience..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Submit Feedback</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function setRating(rating) {
+    document.getElementById('selected-rating-val').value = rating;
+    const stars = document.querySelectorAll('.star-rating');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('text-warning');
+            star.classList.remove('text-secondary');
+        } else {
+            star.classList.remove('text-warning');
+            star.classList.add('text-secondary');
+        }
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.title }} - E-comXpress{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('home') }}" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('products', category=product.category) }}" class="text-decoration-none">{{ product.category }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+    </ol>
+</nav>
+
+<div class="card shadow-sm border-0 mb-5">
+    <div class="card-body p-md-5">
+        <div class="row">
+            <!-- Product Image -->
+            <div class="col-md-5 mb-4 mb-md-0 text-center">
+                <div class="position-relative">
+                    {% if product.discount %}
+                    <span class="badge bg-danger position-absolute top-0 start-0 m-3 px-3 py-2 fs-6">{{ product.discount }}</span>
+                    {% endif %}
+                    <img src="{{ product.image }}" class="img-fluid rounded p-4" alt="{{ product.title }}" style="max-height: 500px; object-fit: contain;">
+                </div>
+            </div>
+            
+            <!-- Product Details -->
+            <div class="col-md-7">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge bg-secondary mb-2">{{ product.brand }}</span>
+                    <a href="{{ url_for('toggle_wishlist', pid=product.id) }}" class="btn btn-outline-danger rounded-circle"><i class="bi bi-heart"></i></a>
+                </div>
+                
+                <h3 class="fw-bold mb-3">{{ product.title }}</h3>
+                
+                <div class="d-flex align-items-center mb-3">
+                    <span class="badge bg-success me-2 py-2"><i class="bi bi-star-fill text-warning"></i> {{ product.rating }}</span>
+                    <span class="text-muted">{{ product.reviews }} Ratings & Reviews</span>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="d-flex align-items-end">
+                        <h2 class="fw-bold mb-0 me-3">₹{{ "{:,}".format(product.price) }}</h2>
+                        {% if product.original_price %}
+                        <h5 class="text-muted text-decoration-line-through mb-1 me-2">₹{{ "{:,}".format(product.original_price) }}</h5>
+                        {% endif %}
+                    </div>
+                    <p class="text-success small fw-bold mt-1">Inclusive of all taxes</p>
+                </div>
+                
+                {% if product.offer %}
+                <div class="alert alert-warning py-2 px-3 mb-4 d-flex align-items-center">
+                    <i class="bi bi-tag-fill me-2 fs-5"></i>
+                    <span><strong>Available Offer:</strong> {{ product.offer }}</span>
+                </div>
+                {% endif %}
+                
+                <div class="mb-4">
+                    <h5 class="fw-bold">Description</h5>
+                    <p class="text-muted">{{ product.description }}</p>
+                </div>
+                
+                {% if product.specs %}
+                <div class="mb-4">
+                    <h5 class="fw-bold">Specifications</h5>
+                    <table class="table table-bordered table-striped mt-3">
+                        <tbody>
+                            {% for key, value in product.specs.items() %}
+                            <tr>
+                                <th class="w-25 text-muted fw-normal">{{ key }}</th>
+                                <td>{{ value }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                
+                <div class="d-flex gap-3 mt-5">
+                    <form action="{{ url_for('add_to_cart', pid=product.id) }}" method="POST" class="flex-grow-1">
+                        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold py-3"><i class="bi bi-cart-plus me-2"></i> Add to Cart</button>
+                    </form>
+                    <a href="{{ url_for('product_detail', pid=product.id) }}" class="btn btn-warning btn-lg flex-grow-1 fw-bold py-3"><i class="bi bi-lightning-fill me-2"></i> Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

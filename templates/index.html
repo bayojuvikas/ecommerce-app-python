@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - E-comXpress{% endblock %}
+
+{% block content %}
+<!-- Carousel -->
+<div id="heroBanner" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner rounded">
+        {% for banner in banners %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="d-flex align-items-center justify-content-center text-white text-center p-5" style="background: {{ banner.bg }}, url('{{ banner.image }}') center/cover; background-blend-mode: overlay; min-height:340px">
+                <div>
+                    <h2 class="display-4 fw-bold">{{ banner.title }}</h2>
+                    <p class="lead">{{ banner.subtitle }}</p>
+                    <a href="{{ url_for('products') }}" class="btn btn-light btn-lg mt-3">Shop Now <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroBanner" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroBanner" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Trending Products -->
+<div class="mb-5">
+    <h3 class="mb-4">Trending Products</h3>
+    <div class="row">
+        {% for p in trending %}
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="card h-100 shadow-sm border-0 hover-card">
+                <div class="position-relative">
+                    {% if p.discount %}
+                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">{{ p.discount }}</span>
+                    {% endif %}
+                    <img src="{{ p.image }}" class="card-img-top p-3 product-img" alt="{{ p.title }}" style="object-fit: contain; height: 200px;">
+                    <a href="{{ url_for('toggle_wishlist', pid=p.id) }}" class="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2 shadow-sm"><i class="bi bi-heart"></i></a>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="text-muted small mb-1">{{ p.brand }}</p>
+                    <h6 class="card-title text-truncate" title="{{ p.title }}">{{ p.title }}</h6>
+                    <div class="mb-2">
+                        <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> {{ p.rating }}</span>
+                        <span class="text-muted small">({{ p.reviews }})</span>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="d-flex align-items-baseline mb-2">
+                            <span class="fs-5 fw-bold me-2">₹{{ "{:,}".format(p.price) }}</span>
+                            {% if p.original_price %}
+                            <span class="text-muted text-decoration-line-through small">₹{{ "{:,}".format(p.original_price) }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <form action="{{ url_for('add_to_cart', pid=p.id) }}" method="POST" class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                            </form>
+                            <a href="{{ url_for('product_detail', pid=p.id) }}" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- All Products -->
+<div class="mb-5">
+    <h3 class="mb-4">All Products</h3>
+    <div class="row">
+        {% for p in products %}
+        <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="card h-100 shadow-sm border-0 hover-card">
+                <div class="position-relative">
+                    {% if p.discount %}
+                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">{{ p.discount }}</span>
+                    {% endif %}
+                    <img src="{{ p.image }}" class="card-img-top p-3 product-img" alt="{{ p.title }}" style="object-fit: contain; height: 200px;">
+                    <a href="{{ url_for('toggle_wishlist', pid=p.id) }}" class="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2 shadow-sm"><i class="bi bi-heart"></i></a>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="text-muted small mb-1">{{ p.brand }}</p>
+                    <h6 class="card-title text-truncate" title="{{ p.title }}">{{ p.title }}</h6>
+                    <div class="mb-2">
+                        <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> {{ p.rating }}</span>
+                        <span class="text-muted small">({{ p.reviews }})</span>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="d-flex align-items-baseline mb-2">
+                            <span class="fs-5 fw-bold me-2">₹{{ "{:,}".format(p.price) }}</span>
+                            {% if p.original_price %}
+                            <span class="text-muted text-decoration-line-through small">₹{{ "{:,}".format(p.original_price) }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="d-grid gap-2">
+                            <form action="{{ url_for('add_to_cart', pid=p.id) }}" method="POST" class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                            </form>
+                            <a href="{{ url_for('product_detail', pid=p.id) }}" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Trust Badges -->
+<div class="row text-center my-5 bg-light py-4 rounded">
+    <div class="col-md-3 col-6 mb-3 mb-md-0">
+        <i class="bi bi-truck fs-1 text-primary"></i>
+        <h6 class="mt-2 fw-bold">Free Delivery</h6>
+    </div>
+    <div class="col-md-3 col-6 mb-3 mb-md-0">
+        <i class="bi bi-arrow-return-left fs-1 text-primary"></i>
+        <h6 class="mt-2 fw-bold">10-Day Returns</h6>
+    </div>
+    <div class="col-md-3 col-6 mb-3 mb-md-0">
+        <i class="bi bi-patch-check fs-1 text-primary"></i>
+        <h6 class="mt-2 fw-bold">100% Authentic</h6>
+    </div>
+    <div class="col-md-3 col-6 mb-3 mb-md-0">
+        <i class="bi bi-headset fs-1 text-primary"></i>
+        <h6 class="mt-2 fw-bold">24/7 Support</h6>
+    </div>
+</div>
+{% endblock %}

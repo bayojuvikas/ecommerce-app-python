@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Login - E-comXpress{% endblock %}
+{% block content %}
+<div class="container my-5 py-3">
+    <div class="card shadow-lg border-0 mx-auto overflow-hidden rounded-4" style="max-width: 950px;">
+        <div class="row g-0">
+            <!-- Left Branding Hero Banner -->
+            <div class="col-md-5 bg-primary bg-gradient text-white p-5 d-flex flex-column justify-content-between position-relative">
+                <div class="z-1">
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="bi bi-bag-heart-fill fs-2 me-2 text-warning"></i>
+                        <h2 class="fw-bold m-0 tracking-tight">E-comXpress</h2>
+                    </div>
+                    <h4 class="fw-semibold mb-3">Welcome Back!</h4>
+                    <p class="text-white-50 lead fs-6">Manage your orders, track shipments, and explore exclusive daily deals designed just for you.</p>
+                </div>
+                
+                <div class="z-1 mt-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-shield-check fs-4 me-3 text-warning"></i>
+                        <span class="small fw-medium">100% Secure Checkout & Buyer Protection</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-truck fs-4 me-3 text-warning"></i>
+                        <span class="small fw-medium">Express Next-Day Delivery Available</span>
+                    </div>
+                </div>
+
+                <!-- Subtle Decorative Shapes -->
+                <div class="position-absolute bottom-0 end-0 p-4 opacity-10 pointer-events-none">
+                    <i class="bi bi-cart-fill display-1"></i>
+                </div>
+            </div>
+
+            <!-- Right Form Section -->
+            <div class="col-md-7 p-4 p-md-5 bg-body-tertiary">
+                <div class="mb-4">
+                    <h3 class="fw-bold text-body-emphasis mb-1">Sign In</h3>
+                    <p class="text-body-secondary small">Enter your account credentials to continue</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold small text-uppercase text-body-secondary">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-body text-body-secondary border-end-0"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control border-start-0 ps-0" id="email" name="email" value="demo@ecomxpress.com" required placeholder="name@example.com">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label for="password" class="form-label fw-semibold small text-uppercase text-body-secondary mb-0">Password</label>
+                            <a href="{{ url_for('forgot_password') }}" class="small text-decoration-none fw-medium text-primary">Forgot password?</a>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text bg-body text-body-secondary border-end-0"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" value="demo123" required placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="remember" checked>
+                        <label class="form-check-label small text-body-secondary" for="remember">
+                            Keep me logged in on this device
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary bg-gradient w-100 py-2.5 fw-bold shadow-sm mb-3">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In to Account
+                    </button>
+
+                    <div class="text-center pt-3 border-top">
+                        <span class="text-body-secondary small">Don't have an account yet?</span>
+                        <a href="{{ url_for('register') }}" class="fw-bold text-decoration-none text-primary ms-1">Create Account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

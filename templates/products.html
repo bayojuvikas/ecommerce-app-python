@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Products - E-comXpress{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Filters</h5>
+                <form action="{{ url_for('products') }}" method="GET">
+                    <!-- Categories -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Category</h6>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_all" value="" {% if not request.args.get('category') %}checked{% endif %}>
+                            <label class="form-check-label" for="cat_all">All Categories</label>
+                        </div>
+                        {% for cat in categories %}
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_{{ loop.index }}" value="{{ cat }}" {% if request.args.get('category') == cat %}checked{% endif %}>
+                            <label class="form-check-label" for="cat_{{ loop.index }}">{{ cat }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Max Price</h6>
+                        <input type="range" class="form-range" name="price_max" min="0" max="100000" step="1000" id="priceRange" value="{{ request.args.get('price_max', '100000') }}" oninput="priceOutput.value = this.value">
+                        <div class="d-flex justify-content-between text-muted small">
+                            <span>₹0</span>
+                            <span>₹<output id="priceOutput">{{ request.args.get('price_max', '100000') }}</output></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Sort -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Sort By</h6>
+                        <select name="sort" class="form-select">
+                            <option value="default" {% if request.args.get('sort') == 'default' %}selected{% endif %}>Relevance</option>
+                            <option value="price_low" {% if request.args.get('sort') == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+                            <option value="price_high" {% if request.args.get('sort') == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+                            <option value="rating" {% if request.args.get('sort') == 'rating' %}selected{% endif %}>Top Rated</option>
+                            <option value="discount" {% if request.args.get('sort') == 'discount' %}selected{% endif %}>Better Discount</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">
+                {% if request.args.get('category') %}
+                    {{ request.args.get('category') }}
+                {% elif request.args.get('q') %}
+                    Search results for "{{ request.args.get('q') }}"
+                {% else %}
+                    All Products
+                {% endif %}
+            </h4>
+            <span class="text-muted">{{ products|length }} products found</span>
+        </div>
+
+        {% if products %}
+        <div class="row">
+            {% for p in products %}
+            <div class="col-lg-3 col-md-4 col-6 mb-4">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        {% if p.discount %}
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">{{ p.discount }}</span>
+                        {% endif %}
+                        <img src="{{ p.image }}" class="card-img-top p-3 product-img" alt="{{ p.title }}" style="object-fit: contain; height: 200px;">
+                        <a href="{{ url_for('toggle_wishlist', pid=p.id) }}" class="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2 shadow-sm"><i class="bi bi-heart"></i></a>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">{{ p.brand }}</p>
+                        <h6 class="card-title text-truncate" title="{{ p.title }}">{{ p.title }}</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> {{ p.rating }}</span>
+                            <span class="text-muted small">({{ p.reviews }})</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹{{ "{:,}".format(p.price) }}</span>
+                                {% if p.original_price %}
+                                <span class="text-muted text-decoration-line-through small">₹{{ "{:,}".format(p.original_price) }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="{{ url_for('add_to_cart', pid=p.id) }}" method="POST" class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="{{ url_for('product_detail', pid=p.id) }}" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="bi bi-search fs-1 text-muted mb-3"></i>
+            <h5>No products found</h5>
+            <p class="text-muted">Try adjusting your filters or search query.</p>
+            <a href="{{ url_for('products') }}" class="btn btn-outline-primary">Clear Filters</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

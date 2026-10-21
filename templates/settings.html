@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Settings - E-comXpress{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2 class="mb-4">Settings</h2>
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('settings') }}">
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3"><i class="bi bi-palette me-2"></i>Theme</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="themeLight" value="light" checked>
+                                <label class="form-check-label" for="themeLight">Light</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="theme" id="themeDark" value="dark">
+                                <label class="form-check-label" for="themeDark">Dark</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="mb-3"><i class="bi bi-currency-exchange me-2"></i>Currency</h5>
+                            <select class="form-select w-50" name="currency">
+                                <option value="INR" selected>INR (₹)</option>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="mb-3"><i class="bi bi-bell me-2"></i>Notifications</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="promo_emails" id="promoEmails" checked>
+                                <label class="form-check-label" for="promoEmails">Promotional Emails</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="whatsapp_updates" id="whatsappUpdates" checked>
+                                <label class="form-check-label" for="whatsappUpdates">WhatsApp Order Updates</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

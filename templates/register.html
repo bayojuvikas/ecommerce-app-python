@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Register - E-comXpress{% endblock %}
+{% block content %}
+<div class="container my-5 py-3">
+    <div class="card shadow-lg border-0 mx-auto overflow-hidden rounded-4" style="max-width: 950px;">
+        <div class="row g-0">
+            <!-- Left Branding Banner -->
+            <div class="col-md-5 bg-primary bg-gradient text-white p-5 d-flex flex-column justify-content-between position-relative">
+                <div class="z-1">
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="bi bi-bag-heart-fill fs-2 me-2 text-warning"></i>
+                        <h2 class="fw-bold m-0 tracking-tight">E-comXpress</h2>
+                    </div>
+                    <h4 class="fw-semibold mb-3">Join E-comXpress Today!</h4>
+                    <p class="text-white-50 lead fs-6">Create an account to unlock fast checkout, personalized recommendations, and exclusive member discounts.</p>
+                </div>
+                
+                <div class="z-1 mt-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-percent fs-4 me-3 text-warning"></i>
+                        <span class="small fw-medium">Get 10% Off Your First Order</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-headset fs-4 me-3 text-warning"></i>
+                        <span class="small fw-medium">Dedicated 24/7 VIP Customer Support</span>
+                    </div>
+                </div>
+
+                <!-- Subtle Decorative Shapes -->
+                <div class="position-absolute bottom-0 end-0 p-4 opacity-10 pointer-events-none">
+                    <i class="bi bi-person-plus-fill display-1"></i>
+                </div>
+            </div>
+
+            <!-- Right Form Section -->
+            <div class="col-md-7 p-4 p-md-5 bg-body-tertiary">
+                <div class="mb-4">
+                    <h3 class="fw-bold text-body-emphasis mb-1">Create Account</h3>
+                    <p class="text-body-secondary small">Fill in your details below to register</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('register') }}">
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label fw-semibold small text-uppercase text-body-secondary">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-body text-body-secondary border-end-0"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" id="fullname" name="name" required placeholder="John Doe">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold small text-uppercase text-body-secondary">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-body text-body-secondary border-end-0"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control border-start-0 ps-0" id="email" name="email" required placeholder="name@example.com">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label fw-semibold small text-uppercase text-body-secondary">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-body text-body-secondary border-end-0"><i class="bi bi-telephone"></i></span>
+                            <input type="tel" class="form-control border-start-0 ps-0" id="phone" name="phone" required placeholder="+91 90000 00000">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-semibold small text-uppercase text-body-secondary">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-body text-body-secondary border-end-0"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" required placeholder="Choose a strong password">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary bg-gradient w-100 py-2.5 fw-bold shadow-sm mb-3">
+                        <i class="bi bi-person-check me-2"></i>Complete Registration
+                    </button>
+
+                    <div class="text-center pt-3 border-top">
+                        <span class="text-body-secondary small">Already have an account?</span>
+                        <a href="{{ url_for('login') }}" class="fw-bold text-decoration-none text-primary ms-1">Sign In</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

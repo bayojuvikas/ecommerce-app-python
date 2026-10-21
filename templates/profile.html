@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - E-comXpress{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 text-center mb-3">
+            <div class="card-body py-4">
+                <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
+                <h4 class="fw-bold mt-3 mb-1">{{ user.name }}</h4>
+                <p class="text-muted mb-2">{{ user.email }}</p>
+                <span class="badge bg-light text-dark border mb-3">Member since {{ user.member_since }}</span>
+                <div class="d-grid">
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="list-group shadow-sm border-0">
+            <a href="#personal-info" class="list-group-item list-group-item-action py-3 border-0 border-bottom"><i class="bi bi-person me-3 text-primary"></i>Personal Information</a>
+            <a href="#addresses" class="list-group-item list-group-item-action py-3 border-0 border-bottom"><i class="bi bi-geo-alt me-3 text-primary"></i>Manage Addresses</a>
+            <a href="#orders" class="list-group-item list-group-item-action py-3 border-0"><i class="bi bi-box-seam me-3 text-primary"></i>Order History</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-8">
+        <!-- Personal Info -->
+        <div id="personal-info" class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="card-title fw-bold mb-0">Personal Information</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-3">
+                    <div class="col-md-4 text-muted fw-bold">Full Name</div>
+                    <div class="col-md-8">{{ user.name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 text-muted fw-bold">Email Address</div>
+                    <div class="col-md-8">{{ user.email }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 text-muted fw-bold">Phone Number</div>
+                    <div class="col-md-8">{{ user.phone }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 text-muted fw-bold">Member Since</div>
+                    <div class="col-md-8">{{ user.member_since }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Addresses -->
+        <div id="addresses" class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                <h5 class="card-title fw-bold mb-0">Saved Addresses</h5>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="collapse" data-bs-target="#addAddressForm"><i class="bi bi-plus-lg me-1"></i>Add New</button>
+            </div>
+            <div class="card-body p-4">
+                <div class="collapse mb-4" id="addAddressForm">
+                    <div class="card card-body bg-light border-0">
+                        <h6 class="fw-bold mb-3">Add a new address</h6>
+                        <form method="POST" action="{{ url_for('profile') }}">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="street" class="form-control" placeholder="Street Address" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="city" class="form-control" placeholder="City" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" name="state" class="form-control" placeholder="State" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" name="pincode" class="form-control" placeholder="Pincode" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="type" class="form-select">
+                                        <option value="Home">Home</option>
+                                        <option value="Work">Work</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <button type="submit" class="btn btn-primary">Save Address</button>
+                                    <button type="button" class="btn btn-outline-secondary ms-2" data-bs-toggle="collapse" data-bs-target="#addAddressForm">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {% if user.addresses %}
+                <div class="list-group list-group-flush">
+                    {% for addr in user.addresses %}
+                    <div class="list-group-item px-0 py-3 {% if not loop.last %}border-bottom{% endif %}">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <span class="badge bg-secondary mb-2">{{ addr.type }}</span>
+                                <p class="mb-1 fw-bold">{{ addr.street }}</p>
+                                <p class="text-muted mb-0">{{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}</p>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-light btn-sm rounded-circle border-0" type="button" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">No saved addresses found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Orders -->
+        <div id="orders" class="card shadow-sm border-0">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="card-title fw-bold mb-0">Order History</h5>
+            </div>
+            <div class="card-body p-4">
+                {% if user.orders %}
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in user.orders %}
+                            <tr>
+                                <td><span class="fw-bold">#{{ order.id }}</span></td>
+                                <td>{{ order.date }}</td>
+                                <td>
+                                    <div class="text-truncate" style="max-width: 200px;" title="{{ order.items[0] }}">
+                                        {{ order.items[0] }}
+                                    </div>
+                                </td>
+                                <td><span class="fw-bold">₹{{ "{:,}".format(order.total) }}</span></td>
+                                <td>
+                                    {% if order.status == 'Delivered' %}
+                                    <span class="badge bg-success">{{ order.status }}</span>
+                                    {% elif order.status == 'Processing' %}
+                                    <span class="badge bg-primary">{{ order.status }}</span>
+                                    {% elif order.status == 'Shipped' %}
+                                    <span class="badge bg-info text-dark">{{ order.status }}</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">{{ order.status }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="bi bi-box2 display-4 text-muted mb-3"></i>
+                    <h5>No orders yet</h5>
+                    <p class="text-muted">When you place orders, they will appear here.</p>
+                    <a href="{{ url_for('products') }}" class="btn btn-outline-primary mt-2">Start Shopping</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
