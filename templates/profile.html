@@ -9,9 +9,9 @@
         <div class="card shadow-sm border-0 text-center mb-3">
             <div class="card-body py-4">
                 <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
-                <h4 class="fw-bold mt-3 mb-1">{{ user.name }}</h4>
-                <p class="text-muted mb-2">{{ user.email }}</p>
-                <span class="badge bg-light text-dark border mb-3">Member since {{ user.member_since }}</span>
+                <h4 class="fw-bold mt-3 mb-1" data-ecx="profile-name">{{ user.name }}</h4>
+                <p class="text-muted mb-2" data-ecx="profile-email">{{ user.email }}</p>
+                <span class="badge bg-light text-dark border mb-3" data-ecx="profile-since">Member since {{ user.member_since }}</span>
                 <div class="d-grid">
                     <a href="{{ url_for('logout') }}" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
                 </div>
@@ -35,15 +35,15 @@
             <div class="card-body p-4">
                 <div class="row mb-3">
                     <div class="col-md-4 text-muted fw-bold">Full Name</div>
-                    <div class="col-md-8">{{ user.name }}</div>
+                    <div class="col-md-8" data-ecx="profile-name-full">{{ user.name }}</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4 text-muted fw-bold">Email Address</div>
-                    <div class="col-md-8">{{ user.email }}</div>
+                    <div class="col-md-8" data-ecx="profile-email-full">{{ user.email }}</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4 text-muted fw-bold">Phone Number</div>
-                    <div class="col-md-8">{{ user.phone }}</div>
+                    <div class="col-md-8" data-ecx="profile-phone">{{ user.phone }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 text-muted fw-bold">Member Since</div>
@@ -62,7 +62,7 @@
                 <div class="collapse mb-4" id="addAddressForm">
                     <div class="card card-body bg-light border-0">
                         <h6 class="fw-bold mb-3">Add a new address</h6>
-                        <form method="POST" action="{{ url_for('profile') }}">
+                        <form method="POST" action="{{ url_for('profile') }}" data-ecx="address-form">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <input type="text" name="street" class="form-control" placeholder="Street Address" required>
@@ -93,7 +93,7 @@
                 </div>
 
                 {% if user.addresses %}
-                <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush" data-ecx="address-list">
                     {% for addr in user.addresses %}
                     <div class="list-group-item px-0 py-3 {% if not loop.last %}border-bottom{% endif %}">
                         <div class="d-flex justify-content-between align-items-start">

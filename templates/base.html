@@ -82,10 +82,10 @@
 
           <!-- Cart -->
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm position-relative" href="{{ url_for('cart') }}">
+            <a class="btn btn-outline-light btn-sm position-relative" href="{{ url_for('cart') }}" data-ecx="cart-link">
               <i class="bi bi-cart3"></i> Cart
               {% if cart_count > 0 %}
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-ecx="cart-badge">
                 {{ cart_count }}
               </span>
               {% endif %}
@@ -95,18 +95,18 @@
           <!-- Profile / Login -->
           {% if logged_in %}
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm" href="{{ url_for('profile') }}">
+            <a class="btn btn-outline-light btn-sm" href="{{ url_for('profile') }}" data-ecx="profile-link">
               <i class="bi bi-person-fill"></i> Profile
             </a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-danger btn-sm fw-bold" href="{{ url_for('logout') }}">
+            <a class="btn btn-danger btn-sm fw-bold" href="{{ url_for('logout') }}" data-ecx="logout-link">
               <i class="bi bi-box-arrow-right"></i> Logout
             </a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="btn btn-light btn-sm text-primary fw-bold" href="{{ url_for('login') }}">Login</a>
+            <a class="btn btn-light btn-sm text-primary fw-bold" href="{{ url_for('login') }}" data-ecx="login-link">Login</a>
           </li>
           {% endif %}
         </ul>
@@ -129,7 +129,7 @@
   </div>
 
   <!-- ==================== FLASH MESSAGES ==================== -->
-  <div class="container-fluid px-4 mt-3">
+  <div class="container-fluid px-4 mt-3" data-ecx="flash-area">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -178,7 +178,7 @@
             <li class="mb-2"><a href="{{ url_for('faq') }}" class="text-white-50 text-decoration-none">Help Center</a></li>
           </ul>
           {% if logged_in %}
-          <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm mt-2">
+          <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm mt-2" data-ecx="logout-link">
             <i class="bi bi-box-arrow-right"></i> Logout
           </a>
           {% endif %}

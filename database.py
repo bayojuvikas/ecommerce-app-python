@@ -414,7 +414,7 @@ def get_product_by_id(pid):
     return None
 
 
-def filter_products(category="All", query="", max_price=200000, sort="default"):
+def filter_products(category="All", query="", max_price=300000, sort="default"):
     results = PRODUCTS.copy()
 
     if category and category != "All":

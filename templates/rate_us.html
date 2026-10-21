@@ -8,7 +8,7 @@
         <h2 class="mb-3">Rate Your Experience</h2>
         <p class="text-muted mb-4">Your feedback helps us improve.</p>
         
-        <form action="{{ url_for('rate_us') }}" method="POST">
+        <form action="{{ url_for('rate_us') }}" method="POST" data-ecx="rate-form">
             <div class="mb-4 d-flex justify-content-center gap-2">
                 <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="1" style="cursor: pointer;" onclick="setRating(1)"></span>
                 <span class="bi bi-star-fill fs-2 text-warning star-rating" data-val="2" style="cursor: pointer;" onclick="setRating(2)"></span>

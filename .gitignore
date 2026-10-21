@@ -23,6 +23,9 @@ secrets.json
 credentials.json
 service-account*.json
 
+# Static build output (published to the gh-pages branch)
+site/
+
 # Local tooling / editor state
 .kilo/
 .vscode/

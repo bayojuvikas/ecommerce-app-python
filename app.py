@@ -73,7 +73,7 @@ def home():
 def products():
     category = request.args.get("category", "All")
     query = request.args.get("q", "")
-    max_price = int(request.args.get("price_max", 200000))
+    max_price = int(request.args.get("price_max", 300000))
     sort = request.args.get("sort", "default")
     
     items = db.filter_products(category, query, max_price, sort)

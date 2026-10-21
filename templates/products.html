@@ -9,7 +9,7 @@
         <div class="card shadow-sm border-0">
             <div class="card-body">
                 <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Filters</h5>
-                <form action="{{ url_for('products') }}" method="GET">
+                <form action="{{ url_for('products') }}" method="GET" data-ecx="filter-form">
                     <!-- Categories -->
                     <div class="mb-4">
                         <h6 class="fw-bold">Category</h6>
@@ -28,10 +28,10 @@
                     <!-- Price Range -->
                     <div class="mb-4">
                         <h6 class="fw-bold">Max Price</h6>
-                        <input type="range" class="form-range" name="price_max" min="0" max="100000" step="1000" id="priceRange" value="{{ request.args.get('price_max', '100000') }}" oninput="priceOutput.value = this.value">
+                        <input type="range" class="form-range" name="price_max" min="0" max="300000" step="1000" id="priceRange" value="{{ request.args.get('price_max', '300000') }}" oninput="priceOutput.value = this.value">
                         <div class="d-flex justify-content-between text-muted small">
                             <span>₹0</span>
-                            <span>₹<output id="priceOutput">{{ request.args.get('price_max', '100000') }}</output></span>
+                            <span>₹<output id="priceOutput">{{ request.args.get('price_max', '300000') }}</output></span>
                         </div>
                     </div>
                     
@@ -56,7 +56,7 @@
     <!-- Main Content -->
     <div class="col-md-9">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mb-0">
+            <h4 class="mb-0" data-ecx="products-heading">
                 {% if request.args.get('category') %}
                     {{ request.args.get('category') }}
                 {% elif request.args.get('q') %}
@@ -65,20 +65,22 @@
                     All Products
                 {% endif %}
             </h4>
-            <span class="text-muted">{{ products|length }} products found</span>
+            <span class="text-muted" data-ecx="product-count">{{ products|length }} products found</span>
         </div>
 
         {% if products %}
-        <div class="row">
+        <div class="row" data-ecx="product-grid">
             {% for p in products %}
-            <div class="col-lg-3 col-md-4 col-6 mb-4">
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="{{ p.id }}" data-category="{{ p.category }}" data-price="{{ p.price }}" data-rating="{{ p.rating }}" data-discount="{{ p.original_price - p.price }}" data-title="{{ p.title }}" data-brand="{{ p.brand }}">
                 <div class="card h-100 shadow-sm border-0 hover-card">
                     <div class="position-relative">
                         {% if p.discount %}
                         <span class="badge bg-danger position-absolute top-0 start-0 m-2">{{ p.discount }}</span>
                         {% endif %}
                         <img src="{{ p.image }}" class="card-img-top p-3 product-img" alt="{{ p.title }}" style="object-fit: contain; height: 200px;">
-                        <a href="{{ url_for('toggle_wishlist', pid=p.id) }}" class="btn btn-light btn-sm rounded-circle position-absolute top-0 end-0 m-2 shadow-sm"><i class="bi bi-heart"></i></a>
+                        <form action="{{ url_for('toggle_wishlist', pid=p.id) }}" method="POST" class="position-absolute top-0 end-0 m-2">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="{{ p.id }}"><i class="bi bi-heart"></i></button>
+                        </form>
                     </div>
                     <div class="card-body d-flex flex-column">
                         <p class="text-muted small mb-1">{{ p.brand }}</p>
@@ -107,7 +109,7 @@
             {% endfor %}
         </div>
         {% else %}
-        <div class="text-center py-5">
+        <div class="text-center py-5" data-ecx="no-results">
             <i class="bi bi-search fs-1 text-muted mb-3"></i>
             <h5>No products found</h5>
             <p class="text-muted">Try adjusting your filters or search query.</p>
