@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - E-comXpress</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .product-img { height: 200px; object-fit: contain; }
+    .hover-card { transition: transform .2s, box-shadow .2s; }
+    .hover-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,.12)!important; }
+    .hero-slide { min-height: 340px; display: flex; align-items: center; }
+    .truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow">
+    <div class="container-fluid px-3 px-lg-4">
+      <!-- Brand -->
+      <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="../index.html">
+        <i class="bi bi-bag-check-fill"></i> E-comXpress
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navContent">
+        <!-- Search Bar -->
+        <form class="d-flex mx-auto my-2 my-lg-0" style="max-width:520px; flex:1;"
+              action="index.html" method="GET">
+          <div class="input-group">
+            <input type="text" class="form-control" name="q" placeholder="Search products, brands..."
+                   value="">
+            <button class="btn btn-warning fw-bold" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- Right Actions -->
+        <ul class="navbar-nav ms-auto align-items-center gap-2">
+          <!-- Dark Mode Toggle -->
+          <li class="nav-item">
+            <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" title="Toggle Dark Mode">
+              <i class="bi bi-moon-stars-fill"></i>
+            </button>
+          </li>
+
+          <!-- Notifications Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link position-relative" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-bell-fill fs-5"></i>
+              
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:10px;">
+                2
+              </span>
+              
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" style="width:320px;">
+              <li><h6 class="dropdown-header">Notifications</h6></li>
+              
+              <li>
+                <a class="dropdown-item small fw-bold" href="../product/1/index.html">
+                  <div>🎉 Price Drop Alert!</div>
+                  <div class="text-muted" style="font-size:11px;">iPhone 15 Pro Max dropped by ₹10,000.</div>
+                  <div class="text-muted" style="font-size:10px;">5 mins ago</div>
+                </a>
+              </li>
+              
+              <li>
+                <a class="dropdown-item small fw-bold" href="../profile/index.html">
+                  <div>🚚 Order Dispatched!</div>
+                  <div class="text-muted" style="font-size:11px;">Sony WH-1000XM5 is out for delivery today.</div>
+                  <div class="text-muted" style="font-size:10px;">1 hour ago</div>
+                </a>
+              </li>
+              
+              <li>
+                <a class="dropdown-item small " href="../settings/index.html">
+                  <div>💳 ₹500 Cashback Credited</div>
+                  <div class="text-muted" style="font-size:11px;">Rewards added to your wallet.</div>
+                  <div class="text-muted" style="font-size:10px;">Yesterday</div>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
+          <!-- Cart -->
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm position-relative" href="../cart/index.html" data-ecx="cart-link">
+              <i class="bi bi-cart3"></i> Cart
+              
+            </a>
+          </li>
+
+          <!-- Profile / Login -->
+          
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="../profile/index.html" data-ecx="profile-link">
+              <i class="bi bi-person-fill"></i> Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-danger btn-sm fw-bold" href="../login/index.html" data-ecx="logout-link">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== CATEGORY BAR ==================== -->
+  <div class="bg-body-tertiary border-bottom">
+    <div class="container-fluid px-4">
+      <div class="d-flex gap-3 py-2 overflow-auto flex-nowrap">
+        
+        <a href="index.html?category=All"
+           class="btn btn-sm btn-outline-secondary text-nowrap active">
+          All
+        </a>
+        
+        <a href="index.html?category=Mobiles"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Mobiles
+        </a>
+        
+        <a href="index.html?category=Electronics"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Electronics
+        </a>
+        
+        <a href="index.html?category=Laptops"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Laptops
+        </a>
+        
+        <a href="index.html?category=Fashion"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Fashion
+        </a>
+        
+        <a href="index.html?category=Appliances"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Appliances
+        </a>
+        
+        <a href="index.html?category=Home"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Home
+        </a>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FLASH MESSAGES ==================== -->
+  <div class="container-fluid px-4 mt-3" data-ecx="flash-area">
+    
+    
+    
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="container-fluid px-4 py-3">
+    
+<div class="row">
+    <!-- Sidebar Filters -->
+    <div class="col-md-3 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title mb-3"><i class="bi bi-funnel"></i> Filters</h5>
+                <form action="index.html" method="GET" data-ecx="filter-form">
+                    <!-- Categories -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Category</h6>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_all" value="" checked>
+                            <label class="form-check-label" for="cat_all">All Categories</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_1" value="All" >
+                            <label class="form-check-label" for="cat_1">All</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_2" value="Mobiles" >
+                            <label class="form-check-label" for="cat_2">Mobiles</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_3" value="Electronics" >
+                            <label class="form-check-label" for="cat_3">Electronics</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_4" value="Laptops" >
+                            <label class="form-check-label" for="cat_4">Laptops</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_5" value="Fashion" >
+                            <label class="form-check-label" for="cat_5">Fashion</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_6" value="Appliances" >
+                            <label class="form-check-label" for="cat_6">Appliances</label>
+                        </div>
+                        
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="category" id="cat_7" value="Home" >
+                            <label class="form-check-label" for="cat_7">Home</label>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Max Price</h6>
+                        <input type="range" class="form-range" name="price_max" min="0" max="300000" step="1000" id="priceRange" value="300000" oninput="priceOutput.value = this.value">
+                        <div class="d-flex justify-content-between text-muted small">
+                            <span>₹0</span>
+                            <span>₹<output id="priceOutput">300000</output></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Sort -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold">Sort By</h6>
+                        <select name="sort" class="form-select">
+                            <option value="default" >Relevance</option>
+                            <option value="price_low" >Price: Low to High</option>
+                            <option value="price_high" >Price: High to Low</option>
+                            <option value="rating" >Top Rated</option>
+                            <option value="discount" >Better Discount</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0" data-ecx="products-heading">
+                
+                    All Products
+                
+            </h4>
+            <span class="text-muted" data-ecx="product-count">27 products found</span>
+        </div>
+
+        
+        <div class="row" data-ecx="product-grid">
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="1" data-category="Mobiles" data-price="149900" data-rating="4.8" data-discount="10000" data-title="Apple iPhone 15 Pro Max (256GB) - Natural Titanium" data-brand="Apple">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">6% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Apple iPhone 15 Pro Max (256GB) - Natural Titanium" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/1">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="1"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Apple</p>
+                        <h6 class="card-title text-truncate" title="Apple iPhone 15 Pro Max (256GB) - Natural Titanium">Apple iPhone 15 Pro Max (256GB) - Natural Titanium</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                            <span class="text-muted small">(14250)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹149,900</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹159,900</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/1">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/1/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="2" data-category="Mobiles" data-price="129999" data-rating="4.7" data-discount="15000" data-title="Samsung Galaxy S24 Ultra 5G (512GB) - Titanium Gray" data-brand="Samsung">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">10% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Samsung Galaxy S24 Ultra 5G (512GB) - Titanium Gray" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/2">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="2"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Samsung</p>
+                        <h6 class="card-title text-truncate" title="Samsung Galaxy S24 Ultra 5G (512GB) - Titanium Gray">Samsung Galaxy S24 Ultra 5G (512GB) - Titanium Gray</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(9840)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹129,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹144,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/2">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/2/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="3" data-category="Mobiles" data-price="64999" data-rating="4.6" data-discount="5000" data-title="OnePlus 12 5G (16GB RAM, 512GB) - Silky Black" data-brand="OnePlus">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">7% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="OnePlus 12 5G (16GB RAM, 512GB) - Silky Black" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/3">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="3"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">OnePlus</p>
+                        <h6 class="card-title text-truncate" title="OnePlus 12 5G (16GB RAM, 512GB) - Silky Black">OnePlus 12 5G (16GB RAM, 512GB) - Silky Black</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                            <span class="text-muted small">(5420)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹64,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹69,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/3">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/3/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="4" data-category="Mobiles" data-price="84999" data-rating="4.5" data-discount="22000" data-title="Google Pixel 8 Pro (128GB) - Obsidian" data-brand="Google">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">20% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Google Pixel 8 Pro (128GB) - Obsidian" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/4">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="4"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Google</p>
+                        <h6 class="card-title text-truncate" title="Google Pixel 8 Pro (128GB) - Obsidian">Google Pixel 8 Pro (128GB) - Obsidian</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.5</span>
+                            <span class="text-muted small">(3120)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹84,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹106,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/4">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/4/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="5" data-category="Electronics" data-price="26990" data-rating="4.9" data-discount="8000" data-title="Sony WH-1000XM5 Wireless Noise Canceling Headphones" data-brand="Sony">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">23% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Sony WH-1000XM5 Wireless Noise Canceling Headphones" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/5">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="5"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Sony</p>
+                        <h6 class="card-title text-truncate" title="Sony WH-1000XM5 Wireless Noise Canceling Headphones">Sony WH-1000XM5 Wireless Noise Canceling Headphones</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                            <span class="text-muted small">(18900)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹26,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹34,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/5">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/5/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="6" data-category="Electronics" data-price="22900" data-rating="4.8" data-discount="2000" data-title="Apple AirPods Pro (2nd Gen) USB-C - White" data-brand="Apple">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">8% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Apple AirPods Pro (2nd Gen) USB-C - White" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/6">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="6"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Apple</p>
+                        <h6 class="card-title text-truncate" title="Apple AirPods Pro (2nd Gen) USB-C - White">Apple AirPods Pro (2nd Gen) USB-C - White</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                            <span class="text-muted small">(24100)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹22,900</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹24,900</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/6">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/6/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="7" data-category="Electronics" data-price="34900" data-rating="4.7" data-discount="5000" data-title="Bose QuietComfort Ultra Wireless Headphones" data-brand="Bose">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">13% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Bose QuietComfort Ultra Wireless Headphones" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/7">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="7"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Bose</p>
+                        <h6 class="card-title text-truncate" title="Bose QuietComfort Ultra Wireless Headphones">Bose QuietComfort Ultra Wireless Headphones</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(4120)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹34,900</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹39,900</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/7">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/7/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="8" data-category="Electronics" data-price="14999" data-rating="4.7" data-discount="3000" data-title="JBL Charge 5 Portable Bluetooth Speaker - Black" data-brand="JBL">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">17% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="JBL Charge 5 Portable Bluetooth Speaker - Black" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/8">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="8"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">JBL</p>
+                        <h6 class="card-title text-truncate" title="JBL Charge 5 Portable Bluetooth Speaker - Black">JBL Charge 5 Portable Bluetooth Speaker - Black</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(12800)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹14,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹17,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/8">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/8/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="9" data-category="Laptops" data-price="144900" data-rating="4.9" data-discount="10000" data-title="Apple MacBook Air M3 (15-inch, 16GB, 512GB SSD) - Midnight" data-brand="Apple">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">6% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Apple MacBook Air M3 (15-inch, 16GB, 512GB SSD) - Midnight" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/9">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="9"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Apple</p>
+                        <h6 class="card-title text-truncate" title="Apple MacBook Air M3 (15-inch, 16GB, 512GB SSD) - Midnight">Apple MacBook Air M3 (15-inch, 16GB, 512GB SSD) - Midnight</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                            <span class="text-muted small">(6420)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹144,900</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹154,900</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/9">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/9/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="10" data-category="Laptops" data-price="249990" data-rating="4.8" data-discount="40000" data-title="ASUS ROG Zephyrus G16 Gaming Laptop (i9, RTX 4080)" data-brand="ASUS">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">14% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="ASUS ROG Zephyrus G16 Gaming Laptop (i9, RTX 4080)" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/10">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="10"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">ASUS</p>
+                        <h6 class="card-title text-truncate" title="ASUS ROG Zephyrus G16 Gaming Laptop (i9, RTX 4080)">ASUS ROG Zephyrus G16 Gaming Laptop (i9, RTX 4080)</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                            <span class="text-muted small">(1840)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹249,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹289,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/10">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/10/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="11" data-category="Laptops" data-price="129990" data-rating="4.6" data-discount="20000" data-title="Dell XPS 13 Laptop (Intel Core Ultra 7, 16GB, 512GB)" data-brand="Dell">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">13% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Dell XPS 13 Laptop (Intel Core Ultra 7, 16GB, 512GB)" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/11">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="11"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Dell</p>
+                        <h6 class="card-title text-truncate" title="Dell XPS 13 Laptop (Intel Core Ultra 7, 16GB, 512GB)">Dell XPS 13 Laptop (Intel Core Ultra 7, 16GB, 512GB)</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                            <span class="text-muted small">(2980)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹129,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹149,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/11">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/11/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="12" data-category="Fashion" data-price="16995" data-rating="4.6" data-discount="5000" data-title="Nike Air Jordan 1 Retro High OG - Chicago" data-brand="Nike">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">22% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Nike Air Jordan 1 Retro High OG - Chicago" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/12">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="12"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Nike</p>
+                        <h6 class="card-title text-truncate" title="Nike Air Jordan 1 Retro High OG - Chicago">Nike Air Jordan 1 Retro High OG - Chicago</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                            <span class="text-muted small">(3120)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹16,995</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹21,995</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/12">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/12/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="13" data-category="Fashion" data-price="13999" data-rating="4.7" data-discount="5000" data-title="Adidas Ultraboost Light Running Shoes - Core Black" data-brand="Adidas">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">26% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Adidas Ultraboost Light Running Shoes - Core Black" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/13">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="13"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Adidas</p>
+                        <h6 class="card-title text-truncate" title="Adidas Ultraboost Light Running Shoes - Core Black">Adidas Ultraboost Light Running Shoes - Core Black</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(4890)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹13,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹18,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/13">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/13/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="14" data-category="Fashion" data-price="9890" data-rating="4.5" data-discount="3000" data-title="Ray-Ban Aviator Classic Polarized - Gold Frame" data-brand="Ray-Ban">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">23% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Ray-Ban Aviator Classic Polarized - Gold Frame" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/14">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="14"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Ray-Ban</p>
+                        <h6 class="card-title text-truncate" title="Ray-Ban Aviator Classic Polarized - Gold Frame">Ray-Ban Aviator Classic Polarized - Gold Frame</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.5</span>
+                            <span class="text-muted small">(7890)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹9,890</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹12,890</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/14">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/14/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="15" data-category="Fashion" data-price="18495" data-rating="4.4" data-discount="6500" data-title="Fossil Gen 6 Smartwatch with Leather Strap" data-brand="Fossil">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">26% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Fossil Gen 6 Smartwatch with Leather Strap" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/15">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="15"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Fossil</p>
+                        <h6 class="card-title text-truncate" title="Fossil Gen 6 Smartwatch with Leather Strap">Fossil Gen 6 Smartwatch with Leather Strap</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.4</span>
+                            <span class="text-muted small">(2140)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹18,495</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹24,995</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/15">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/15/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="20" data-category="Fashion" data-price="3999" data-rating="4.6" data-discount="2000" data-title="Levi&#39;s Men&#39;s Trucker Denim Jacket - Classic Indigo" data-brand="Levi&#39;s">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">33% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Levi&#39;s Men&#39;s Trucker Denim Jacket - Classic Indigo" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/20">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="20"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Levi&#39;s</p>
+                        <h6 class="card-title text-truncate" title="Levi&#39;s Men&#39;s Trucker Denim Jacket - Classic Indigo">Levi&#39;s Men&#39;s Trucker Denim Jacket - Classic Indigo</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                            <span class="text-muted small">(6420)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹3,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹5,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/20">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/20/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="21" data-category="Fashion" data-price="18990" data-rating="4.8" data-discount="8000" data-title="Michael Kors Jet Set Large Tote Handbag - Tan" data-brand="Michael Kors">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">29% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Michael Kors Jet Set Large Tote Handbag - Tan" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/21">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="21"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Michael Kors</p>
+                        <h6 class="card-title text-truncate" title="Michael Kors Jet Set Large Tote Handbag - Tan">Michael Kors Jet Set Large Tote Handbag - Tan</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                            <span class="text-muted small">(2140)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹18,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹26,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/21">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/21/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="22" data-category="Fashion" data-price="6999" data-rating="4.7" data-discount="3000" data-title="Raymond Tailored Fit Blazer - Midnight Navy" data-brand="Raymond">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">30% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Raymond Tailored Fit Blazer - Midnight Navy" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/22">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="22"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Raymond</p>
+                        <h6 class="card-title text-truncate" title="Raymond Tailored Fit Blazer - Midnight Navy">Raymond Tailored Fit Blazer - Midnight Navy</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(1890)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹6,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹9,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/22">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/22/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="23" data-category="Fashion" data-price="14995" data-rating="4.8" data-discount="5000" data-title="Timberland 6-inch Premium Waterproof Boots" data-brand="Timberland">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">25% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Timberland 6-inch Premium Waterproof Boots" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/23">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="23"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Timberland</p>
+                        <h6 class="card-title text-truncate" title="Timberland 6-inch Premium Waterproof Boots">Timberland 6-inch Premium Waterproof Boots</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                            <span class="text-muted small">(3410)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹14,995</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹19,995</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/23">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/23/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="16" data-category="Appliances" data-price="119990" data-rating="4.8" data-discount="50000" data-title="LG 55-inch 4K OLED TV C3 (Dolby Vision, 120Hz)" data-brand="LG">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">29% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="LG 55-inch 4K OLED TV C3 (Dolby Vision, 120Hz)" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/16">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="16"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">LG</p>
+                        <h6 class="card-title text-truncate" title="LG 55-inch 4K OLED TV C3 (Dolby Vision, 120Hz)">LG 55-inch 4K OLED TV C3 (Dolby Vision, 120Hz)</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.8</span>
+                            <span class="text-muted small">(5120)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹119,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹169,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/16">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/16/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="17" data-category="Appliances" data-price="82990" data-rating="4.7" data-discount="29910" data-title="Samsung 653L Side-by-Side Refrigerator with Dispenser" data-brand="Samsung">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">26% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Samsung 653L Side-by-Side Refrigerator with Dispenser" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/17">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="17"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Samsung</p>
+                        <h6 class="card-title text-truncate" title="Samsung 653L Side-by-Side Refrigerator with Dispenser">Samsung 653L Side-by-Side Refrigerator with Dispenser</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(3410)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹82,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹112,900</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/17">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/17/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="18" data-category="Home" data-price="62900" data-rating="4.7" data-discount="7000" data-title="Dyson V15 Detect Cordless Vacuum with HEPA Filter" data-brand="Dyson">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">10% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Dyson V15 Detect Cordless Vacuum with HEPA Filter" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/18">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="18"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Dyson</p>
+                        <h6 class="card-title text-truncate" title="Dyson V15 Detect Cordless Vacuum with HEPA Filter">Dyson V15 Detect Cordless Vacuum with HEPA Filter</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(2180)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹62,900</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹69,900</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/18">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/18/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="19" data-category="Home" data-price="24999" data-rating="4.6" data-discount="8000" data-title="Philips Barista Espresso Coffee Machine with Frother" data-brand="Philips">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">24% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Philips Barista Espresso Coffee Machine with Frother" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/19">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="19"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Philips</p>
+                        <h6 class="card-title text-truncate" title="Philips Barista Espresso Coffee Machine with Frother">Philips Barista Espresso Coffee Machine with Frother</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                            <span class="text-muted small">(1890)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹24,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹32,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/19">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/19/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="24" data-category="Home" data-price="14999" data-rating="4.7" data-discount="5000" data-title="Xiaomi Smart Air Purifier 4 Pro with HEPA Filter" data-brand="Xiaomi">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">25% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Xiaomi Smart Air Purifier 4 Pro with HEPA Filter" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/24">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="24"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Xiaomi</p>
+                        <h6 class="card-title text-truncate" title="Xiaomi Smart Air Purifier 4 Pro with HEPA Filter">Xiaomi Smart Air Purifier 4 Pro with HEPA Filter</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(5120)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹14,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹19,999</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/24">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/24/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="25" data-category="Home" data-price="89990" data-rating="4.9" data-discount="30000" data-title="Roborock S8 Pro Ultra Robot Vacuum &amp; Mop" data-brand="Roborock">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">25% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1625842268584-8f3296236761?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Roborock S8 Pro Ultra Robot Vacuum &amp; Mop" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/25">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="25"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Roborock</p>
+                        <h6 class="card-title text-truncate" title="Roborock S8 Pro Ultra Robot Vacuum &amp; Mop">Roborock S8 Pro Ultra Robot Vacuum &amp; Mop</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.9</span>
+                            <span class="text-muted small">(1420)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹89,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹119,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/25">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/25/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="26" data-category="Home" data-price="16990" data-rating="4.6" data-discount="8000" data-title="Green Soul Monster Ergonomic Gaming Chair" data-brand="Green Soul">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">32% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Green Soul Monster Ergonomic Gaming Chair" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/26">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="26"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Green Soul</p>
+                        <h6 class="card-title text-truncate" title="Green Soul Monster Ergonomic Gaming Chair">Green Soul Monster Ergonomic Gaming Chair</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.6</span>
+                            <span class="text-muted small">(8940)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹16,990</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹24,990</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/26">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/26/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-4 col-6 mb-4" data-ecx="product-card" data-pid="27" data-category="Home" data-price="4999" data-rating="4.7" data-discount="2500" data-title="Prestige Deluxe Stainless Steel Cookware Set (5 Pcs)" data-brand="Prestige">
+                <div class="card h-100 shadow-sm border-0 hover-card">
+                    <div class="position-relative">
+                        
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2">33% OFF</span>
+                        
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&amp;q=80" class="card-img-top p-3 product-img" alt="Prestige Deluxe Stainless Steel Cookware Set (5 Pcs)" style="object-fit: contain; height: 200px;">
+                        <form action="#" method="POST" class="position-absolute top-0 end-0 m-2" data-ecx-action="/wishlist/toggle/27">
+                            <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm" title="Wishlist" data-ecx="wishlist-btn" data-pid="27"><i class="bi bi-heart"></i></button>
+                        </form>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <p class="text-muted small mb-1">Prestige</p>
+                        <h6 class="card-title text-truncate" title="Prestige Deluxe Stainless Steel Cookware Set (5 Pcs)">Prestige Deluxe Stainless Steel Cookware Set (5 Pcs)</h6>
+                        <div class="mb-2">
+                            <span class="badge bg-success"><i class="bi bi-star-fill text-warning"></i> 4.7</span>
+                            <span class="text-muted small">(6120)</span>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="d-flex align-items-baseline mb-2">
+                                <span class="fs-5 fw-bold me-2">₹4,999</span>
+                                
+                                <span class="text-muted text-decoration-line-through small">₹7,499</span>
+                                
+                            </div>
+                            <div class="d-grid gap-2">
+                                <form action="#" method="POST" class="d-grid" data-ecx-action="/cart/add/27">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                                </form>
+                                <a href="../product/27/index.html" class="btn btn-outline-secondary btn-sm">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-dark text-white mt-5 pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3">
+          <h5 class="fw-bold"><i class="bi bi-bag-check-fill me-2"></i>E-comXpress</h5>
+          <p class="text-secondary small">Your one-stop destination for quality products at the best prices.</p>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-secondary fw-bold small mb-3">About</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="../about/index.html" class="text-white-50 text-decoration-none">About Us</a></li>
+            <li class="mb-2"><a href="../faq/index.html" class="text-white-50 text-decoration-none">FAQs</a></li>
+            <li class="mb-2"><a href="../privacy/index.html" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-secondary fw-bold small mb-3">Account</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="../profile/index.html" class="text-white-50 text-decoration-none">My Account</a></li>
+            <li class="mb-2"><a href="../cart/index.html" class="text-white-50 text-decoration-none">My Cart</a></li>
+            <li class="mb-2"><a href="../settings/index.html" class="text-white-50 text-decoration-none">Settings</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-secondary fw-bold small mb-3">Connect</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="../rate-us/index.html" class="text-white-50 text-decoration-none">Rate Us</a></li>
+            <li class="mb-2"><a href="../faq/index.html" class="text-white-50 text-decoration-none">Help Center</a></li>
+          </ul>
+          
+          <a href="../login/index.html" class="btn btn-outline-danger btn-sm mt-2" data-ecx="logout-link">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </a>
+          
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <p class="text-center text-secondary small mb-0">&copy; 2026 E-comXpress. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Toggle (minimal inline JS) -->
+  <script>
+    const html = document.documentElement;
+    const saved = localStorage.getItem('ecx-theme');
+    if (saved) html.setAttribute('data-bs-theme', saved);
+
+    function toggleTheme() {
+      const next = (html.getAttribute('data-bs-theme') || 'light') === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-bs-theme', next);
+      localStorage.setItem('ecx-theme', next);
+    }
+  </script>
+
+  
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

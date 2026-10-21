@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart - E-comXpress</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .product-img { height: 200px; object-fit: contain; }
+    .hover-card { transition: transform .2s, box-shadow .2s; }
+    .hover-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,.12)!important; }
+    .hero-slide { min-height: 340px; display: flex; align-items: center; }
+    .truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow">
+    <div class="container-fluid px-3 px-lg-4">
+      <!-- Brand -->
+      <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="../index.html">
+        <i class="bi bi-bag-check-fill"></i> E-comXpress
+      </a>
+
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navContent">
+        <!-- Search Bar -->
+        <form class="d-flex mx-auto my-2 my-lg-0" style="max-width:520px; flex:1;"
+              action="../products/index.html" method="GET">
+          <div class="input-group">
+            <input type="text" class="form-control" name="q" placeholder="Search products, brands..."
+                   value="">
+            <button class="btn btn-warning fw-bold" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- Right Actions -->
+        <ul class="navbar-nav ms-auto align-items-center gap-2">
+          <!-- Dark Mode Toggle -->
+          <li class="nav-item">
+            <button class="btn btn-outline-light btn-sm" onclick="toggleTheme()" title="Toggle Dark Mode">
+              <i class="bi bi-moon-stars-fill"></i>
+            </button>
+          </li>
+
+          <!-- Notifications Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link position-relative" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-bell-fill fs-5"></i>
+              
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:10px;">
+                2
+              </span>
+              
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" style="width:320px;">
+              <li><h6 class="dropdown-header">Notifications</h6></li>
+              
+              <li>
+                <a class="dropdown-item small fw-bold" href="../product/1/index.html">
+                  <div>🎉 Price Drop Alert!</div>
+                  <div class="text-muted" style="font-size:11px;">iPhone 15 Pro Max dropped by ₹10,000.</div>
+                  <div class="text-muted" style="font-size:10px;">5 mins ago</div>
+                </a>
+              </li>
+              
+              <li>
+                <a class="dropdown-item small fw-bold" href="../profile/index.html">
+                  <div>🚚 Order Dispatched!</div>
+                  <div class="text-muted" style="font-size:11px;">Sony WH-1000XM5 is out for delivery today.</div>
+                  <div class="text-muted" style="font-size:10px;">1 hour ago</div>
+                </a>
+              </li>
+              
+              <li>
+                <a class="dropdown-item small " href="../settings/index.html">
+                  <div>💳 ₹500 Cashback Credited</div>
+                  <div class="text-muted" style="font-size:11px;">Rewards added to your wallet.</div>
+                  <div class="text-muted" style="font-size:10px;">Yesterday</div>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
+          <!-- Cart -->
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm position-relative" href="index.html" data-ecx="cart-link">
+              <i class="bi bi-cart3"></i> Cart
+              
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" data-ecx="cart-badge">
+                27
+              </span>
+              
+            </a>
+          </li>
+
+          <!-- Profile / Login -->
+          
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="../profile/index.html" data-ecx="profile-link">
+              <i class="bi bi-person-fill"></i> Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-danger btn-sm fw-bold" href="../login/index.html" data-ecx="logout-link">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== CATEGORY BAR ==================== -->
+  <div class="bg-body-tertiary border-bottom">
+    <div class="container-fluid px-4">
+      <div class="d-flex gap-3 py-2 overflow-auto flex-nowrap">
+        
+        <a href="../products/index.html?category=All"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          All
+        </a>
+        
+        <a href="../products/index.html?category=Mobiles"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Mobiles
+        </a>
+        
+        <a href="../products/index.html?category=Electronics"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Electronics
+        </a>
+        
+        <a href="../products/index.html?category=Laptops"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Laptops
+        </a>
+        
+        <a href="../products/index.html?category=Fashion"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Fashion
+        </a>
+        
+        <a href="../products/index.html?category=Appliances"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Appliances
+        </a>
+        
+        <a href="../products/index.html?category=Home"
+           class="btn btn-sm btn-outline-secondary text-nowrap ">
+          Home
+        </a>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FLASH MESSAGES ==================== -->
+  <div class="container-fluid px-4 mt-3" data-ecx="flash-area">
+    
+    
+    
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="container-fluid px-4 py-3">
+    
+<h3 class="mb-4 fw-bold">Shopping Cart</h3>
+
+
+<div class="row">
+    <!-- Cart Items -->
+    <div class="col-md-8 mb-4" data-ecx="cart-items">
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="1">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&amp;q=80" alt="Apple iPhone 15 Pro Max (256GB) - Natural Titanium" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/1/index.html" class="text-decoration-none text-dark">Apple iPhone 15 Pro Max (256GB) - Natural Titanium</a></h6>
+                                <p class="text-muted small mb-0">Apple</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/1">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/1">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹149,900</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/1">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="10">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&amp;q=80" alt="ASUS ROG Zephyrus G16 Gaming Laptop (i9, RTX 4080)" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/10/index.html" class="text-decoration-none text-dark">ASUS ROG Zephyrus G16 Gaming Laptop (i9, RTX 4080)</a></h6>
+                                <p class="text-muted small mb-0">ASUS</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/10">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/10">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹249,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/10">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="11">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&amp;q=80" alt="Dell XPS 13 Laptop (Intel Core Ultra 7, 16GB, 512GB)" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/11/index.html" class="text-decoration-none text-dark">Dell XPS 13 Laptop (Intel Core Ultra 7, 16GB, 512GB)</a></h6>
+                                <p class="text-muted small mb-0">Dell</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/11">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/11">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹129,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/11">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="12">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&amp;q=80" alt="Nike Air Jordan 1 Retro High OG - Chicago" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/12/index.html" class="text-decoration-none text-dark">Nike Air Jordan 1 Retro High OG - Chicago</a></h6>
+                                <p class="text-muted small mb-0">Nike</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/12">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/12">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹16,995</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/12">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="13">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600&amp;q=80" alt="Adidas Ultraboost Light Running Shoes - Core Black" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/13/index.html" class="text-decoration-none text-dark">Adidas Ultraboost Light Running Shoes - Core Black</a></h6>
+                                <p class="text-muted small mb-0">Adidas</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/13">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/13">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹13,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/13">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="14">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&amp;q=80" alt="Ray-Ban Aviator Classic Polarized - Gold Frame" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/14/index.html" class="text-decoration-none text-dark">Ray-Ban Aviator Classic Polarized - Gold Frame</a></h6>
+                                <p class="text-muted small mb-0">Ray-Ban</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/14">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/14">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹9,890</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/14">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="15">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&amp;q=80" alt="Fossil Gen 6 Smartwatch with Leather Strap" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/15/index.html" class="text-decoration-none text-dark">Fossil Gen 6 Smartwatch with Leather Strap</a></h6>
+                                <p class="text-muted small mb-0">Fossil</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/15">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/15">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹18,495</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/15">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="16">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&amp;q=80" alt="LG 55-inch 4K OLED TV C3 (Dolby Vision, 120Hz)" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/16/index.html" class="text-decoration-none text-dark">LG 55-inch 4K OLED TV C3 (Dolby Vision, 120Hz)</a></h6>
+                                <p class="text-muted small mb-0">LG</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/16">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/16">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹119,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/16">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="17">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=600&amp;q=80" alt="Samsung 653L Side-by-Side Refrigerator with Dispenser" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/17/index.html" class="text-decoration-none text-dark">Samsung 653L Side-by-Side Refrigerator with Dispenser</a></h6>
+                                <p class="text-muted small mb-0">Samsung</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/17">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/17">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹82,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/17">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="18">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&amp;q=80" alt="Dyson V15 Detect Cordless Vacuum with HEPA Filter" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/18/index.html" class="text-decoration-none text-dark">Dyson V15 Detect Cordless Vacuum with HEPA Filter</a></h6>
+                                <p class="text-muted small mb-0">Dyson</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/18">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/18">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹62,900</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/18">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="19">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&amp;q=80" alt="Philips Barista Espresso Coffee Machine with Frother" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/19/index.html" class="text-decoration-none text-dark">Philips Barista Espresso Coffee Machine with Frother</a></h6>
+                                <p class="text-muted small mb-0">Philips</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/19">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/19">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹24,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/19">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&amp;q=80" alt="Samsung Galaxy S24 Ultra 5G (512GB) - Titanium Gray" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/2/index.html" class="text-decoration-none text-dark">Samsung Galaxy S24 Ultra 5G (512GB) - Titanium Gray</a></h6>
+                                <p class="text-muted small mb-0">Samsung</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/2">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/2">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹129,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/2">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="20">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600&amp;q=80" alt="Levi&#39;s Men&#39;s Trucker Denim Jacket - Classic Indigo" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/20/index.html" class="text-decoration-none text-dark">Levi&#39;s Men&#39;s Trucker Denim Jacket - Classic Indigo</a></h6>
+                                <p class="text-muted small mb-0">Levi&#39;s</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/20">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/20">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹3,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/20">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="21">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&amp;q=80" alt="Michael Kors Jet Set Large Tote Handbag - Tan" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/21/index.html" class="text-decoration-none text-dark">Michael Kors Jet Set Large Tote Handbag - Tan</a></h6>
+                                <p class="text-muted small mb-0">Michael Kors</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/21">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/21">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹18,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/21">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="22">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&amp;q=80" alt="Raymond Tailored Fit Blazer - Midnight Navy" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/22/index.html" class="text-decoration-none text-dark">Raymond Tailored Fit Blazer - Midnight Navy</a></h6>
+                                <p class="text-muted small mb-0">Raymond</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/22">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/22">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹6,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/22">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="23">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=600&amp;q=80" alt="Timberland 6-inch Premium Waterproof Boots" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/23/index.html" class="text-decoration-none text-dark">Timberland 6-inch Premium Waterproof Boots</a></h6>
+                                <p class="text-muted small mb-0">Timberland</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/23">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/23">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹14,995</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/23">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="24">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&amp;q=80" alt="Xiaomi Smart Air Purifier 4 Pro with HEPA Filter" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/24/index.html" class="text-decoration-none text-dark">Xiaomi Smart Air Purifier 4 Pro with HEPA Filter</a></h6>
+                                <p class="text-muted small mb-0">Xiaomi</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/24">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/24">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹14,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/24">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="25">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1625842268584-8f3296236761?w=600&amp;q=80" alt="Roborock S8 Pro Ultra Robot Vacuum &amp; Mop" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/25/index.html" class="text-decoration-none text-dark">Roborock S8 Pro Ultra Robot Vacuum &amp; Mop</a></h6>
+                                <p class="text-muted small mb-0">Roborock</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/25">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/25">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹89,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/25">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="26">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&amp;q=80" alt="Green Soul Monster Ergonomic Gaming Chair" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/26/index.html" class="text-decoration-none text-dark">Green Soul Monster Ergonomic Gaming Chair</a></h6>
+                                <p class="text-muted small mb-0">Green Soul</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/26">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/26">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹16,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/26">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="27">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&amp;q=80" alt="Prestige Deluxe Stainless Steel Cookware Set (5 Pcs)" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/27/index.html" class="text-decoration-none text-dark">Prestige Deluxe Stainless Steel Cookware Set (5 Pcs)</a></h6>
+                                <p class="text-muted small mb-0">Prestige</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/27">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/27">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹4,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/27">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="3">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&amp;q=80" alt="OnePlus 12 5G (16GB RAM, 512GB) - Silky Black" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/3/index.html" class="text-decoration-none text-dark">OnePlus 12 5G (16GB RAM, 512GB) - Silky Black</a></h6>
+                                <p class="text-muted small mb-0">OnePlus</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/3">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/3">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹64,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/3">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&amp;q=80" alt="Google Pixel 8 Pro (128GB) - Obsidian" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/4/index.html" class="text-decoration-none text-dark">Google Pixel 8 Pro (128GB) - Obsidian</a></h6>
+                                <p class="text-muted small mb-0">Google</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/4">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/4">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹84,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/4">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="5">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&amp;q=80" alt="Sony WH-1000XM5 Wireless Noise Canceling Headphones" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/5/index.html" class="text-decoration-none text-dark">Sony WH-1000XM5 Wireless Noise Canceling Headphones</a></h6>
+                                <p class="text-muted small mb-0">Sony</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/5">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/5">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹26,990</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/5">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="6">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&amp;q=80" alt="Apple AirPods Pro (2nd Gen) USB-C - White" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/6/index.html" class="text-decoration-none text-dark">Apple AirPods Pro (2nd Gen) USB-C - White</a></h6>
+                                <p class="text-muted small mb-0">Apple</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/6">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/6">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹22,900</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/6">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="7">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&amp;q=80" alt="Bose QuietComfort Ultra Wireless Headphones" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/7/index.html" class="text-decoration-none text-dark">Bose QuietComfort Ultra Wireless Headphones</a></h6>
+                                <p class="text-muted small mb-0">Bose</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/7">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/7">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹34,900</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/7">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="8">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&amp;q=80" alt="JBL Charge 5 Portable Bluetooth Speaker - Black" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/8/index.html" class="text-decoration-none text-dark">JBL Charge 5 Portable Bluetooth Speaker - Black</a></h6>
+                                <p class="text-muted small mb-0">JBL</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/8">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/8">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹14,999</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/8">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm border-0 mb-3" data-ecx="cart-row" data-pid="9">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-3 col-md-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&amp;q=80" alt="Apple MacBook Air M3 (15-inch, 16GB, 512GB SSD) - Midnight" class="img-fluid" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 mb-2 mb-md-0">
+                                <h6 class="fw-bold text-truncate mb-1"><a href="../product/9/index.html" class="text-decoration-none text-dark">Apple MacBook Air M3 (15-inch, 16GB, 512GB SSD) - Midnight</a></h6>
+                                <p class="text-muted small mb-0">Apple</p>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-center">
+                                <div class="d-inline-flex align-items-center border rounded">
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/9">
+                                        <input type="hidden" name="action" value="decrease">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2" disabled><i class="bi bi-dash"></i></button>
+                                    </form>
+                                    <span class="px-3 fw-bold" data-ecx="cart-qty">1</span>
+                                    <form action="#" method="POST" class="m-0" data-ecx-action="/cart/update/9">
+                                        <input type="hidden" name="action" value="increase">
+                                        <button type="submit" class="btn btn-sm btn-light border-0 px-2"><i class="bi bi-plus"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2 mb-md-0 text-md-end">
+                                <span class="fw-bold fs-5" data-ecx="cart-line-price">₹144,900</span>
+                            </div>
+                            <div class="col-md-1 text-md-end">
+                                <form action="#" method="POST" class="m-0" data-ecx-action="/cart/remove/9">
+                                    <button type="submit" class="btn btn-link text-danger p-0" title="Remove"><i class="bi bi-trash fs-5"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Price Summary -->
+    <div class="col-md-4" data-ecx="cart-summary">
+        <div class="card shadow-sm border-0 position-sticky" style="top: 20px;">
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="card-title fw-bold mb-0 text-muted text-uppercase fs-6">Price Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-muted" data-ecx="cart-count">Price (27 items)</span>
+                    <span data-ecx="cart-original">₹1,894,695</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-muted">Discount</span>
+                    <span class="text-success" data-ecx="cart-savings">- ₹317,910</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                    <span class="text-muted">Delivery Charges</span>
+                    <span class="text-success">FREE</span>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                    <h5 class="fw-bold mb-0">Total Amount</h5>
+                    <h5 class="fw-bold mb-0" data-ecx="cart-total">₹1,576,785</h5>
+                </div>
+                <p class="text-success fw-bold small mb-4" data-ecx="cart-savings-note">You will save ₹317,910 on this order</p>
+                <button class="btn btn-primary btn-lg w-100 fw-bold py-3" data-ecx="place-order">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-dark text-white mt-5 pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3">
+          <h5 class="fw-bold"><i class="bi bi-bag-check-fill me-2"></i>E-comXpress</h5>
+          <p class="text-secondary small">Your one-stop destination for quality products at the best prices.</p>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-secondary fw-bold small mb-3">About</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="../about/index.html" class="text-white-50 text-decoration-none">About Us</a></li>
+            <li class="mb-2"><a href="../faq/index.html" class="text-white-50 text-decoration-none">FAQs</a></li>
+            <li class="mb-2"><a href="../privacy/index.html" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-secondary fw-bold small mb-3">Account</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="../profile/index.html" class="text-white-50 text-decoration-none">My Account</a></li>
+            <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">My Cart</a></li>
+            <li class="mb-2"><a href="../settings/index.html" class="text-white-50 text-decoration-none">Settings</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h6 class="text-uppercase text-secondary fw-bold small mb-3">Connect</h6>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="../rate-us/index.html" class="text-white-50 text-decoration-none">Rate Us</a></li>
+            <li class="mb-2"><a href="../faq/index.html" class="text-white-50 text-decoration-none">Help Center</a></li>
+          </ul>
+          
+          <a href="../login/index.html" class="btn btn-outline-danger btn-sm mt-2" data-ecx="logout-link">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </a>
+          
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <p class="text-center text-secondary small mb-0">&copy; 2026 E-comXpress. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Toggle (minimal inline JS) -->
+  <script>
+    const html = document.documentElement;
+    const saved = localStorage.getItem('ecx-theme');
+    if (saved) html.setAttribute('data-bs-theme', saved);
+
+    function toggleTheme() {
+      const next = (html.getAttribute('data-bs-theme') || 'light') === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-bs-theme', next);
+      localStorage.setItem('ecx-theme', next);
+    }
+  </script>
+
+  
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>
